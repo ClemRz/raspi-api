@@ -33,49 +33,40 @@ Test the API: http://localhost:8081/api/--TODO--
 
  - Protocol: `REST`
  - Endpoint: `/`
- - URL format: `/api/{symbol}/{startDate}/{endDate}`
- - Methods: `GET`
+ - URL format: `/api/device/{device ID}/entry`
+ - Methods: `POST`
  - Authentication: none
  - Mandatory fields:
-   * `symbol`:
-     + Description: Representation of the currencies
+   * `device ID`:
+     + Description: ID of the device
      + Type: string
-     + Available values: `BTCUSD`
-   * `startDate`:
-     + Description: Unix timestamp (seconds)
-     + Type: integer
-     + Range: >= `1410825600`
-   * `endDate`:
-     + Description: Unix timestamp (seconds)
-     + Type: integer
-     + Range: > `startDate`
+   * Body:
+     + Type: JSON
+     + Format: `[["key1", "value1"],["key2", "value2"], ...]`
  
  ### Examples --TODO--
  
-Request: `/api/BTCUSD/1595030400/1595203199`
+Request: `/api/device/123abc/entry`
+
+Body: `[["key1", "value1"],["key2", "value2"]]`
 
 Response: 
  ```json
-[
-    {
-        "timestamp": 1595026800,
-        "close": "9159.040"
-    },
-    {
-        "timestamp": 1595113200,
-        "close": null
-    }
-]
+{
+    "status": "success"
+}
 ```
 ---
-Request: `/api/BTCUSD/1595203199/1595030400`
+Request: `/api/device/123abc/entry`
+
+Body: `[["key1", "value1"],["key2", "value2"`
 
 Response: 
  ```json
 {
     "error": {
-        "message": "Validation exception, inconsistency detected: startDate is older than endDate",
-        "code": 22
+        "message": "Syntax error",
+        "code": 4
     }
 }
 ```
