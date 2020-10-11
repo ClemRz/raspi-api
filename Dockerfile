@@ -1,3 +1,5 @@
+ARG ARCH
+
 # pull official base image
 FROM ${ARCH}php:7.3-apache
 

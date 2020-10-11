@@ -6,6 +6,8 @@ services:
     image: clemrz/raspi-api:prod
     build:
       context: ./
+      args:
+          ARCH: ${ARCH}
     volumes:
       - ./src:/var/www/html/
       - ./log:/var/log/
@@ -15,6 +17,6 @@ services:
   composer:
     container_name: ba_back_composer
     image: ${ARCH}composer:latest
-    command: ["composer", "install"]
+    command: [ "composer", "install" ]
     volumes:
       - ./src:/app
