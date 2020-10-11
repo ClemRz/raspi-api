@@ -1,5 +1,5 @@
 # pull official base image
-FROM php:7.3-apache
+FROM ${ARCH}php:7.3-apache
 
 # update aptitude
 RUN apt-get update

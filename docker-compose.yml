@@ -14,7 +14,7 @@ services:
 
   composer:
     container_name: ba_back_composer
-    image: composer:latest
+    image: ${ARCH}composer:latest
     command: ["composer", "install"]
     volumes:
       - ./src:/app
