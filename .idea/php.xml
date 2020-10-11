@@ -11,5 +11,5 @@
       <path value="$PROJECT_DIR$/src/vendor/symfony/polyfill-php80" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />
+  <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
 </project>
