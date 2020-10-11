@@ -1,22 +1,41 @@
 version: '3.3'
 services:
 
-  backserver:
-    container_name: rpi_back_php73
-    image: clemrz/raspi-api:prod
-    build:
-      context: ./
-      args:
-          ARCH: ${ARCH}
+  php:
+    container_name: rpi_php
+    image: ${ARCH}php:7.3-fpm
     volumes:
       - ./src:/var/www/html/
       - ./log:/var/log/
+    networks:
+      - raspi
+
+  apache:
+    container_name: rpi_apache
+    image: clemrz/raspi-api-apache:${ENV}
+    build:
+      context: ./
+      args:
+        ARCH: ${ARCH}
+    depends_on:
+      - php
+    networks:
+      - raspi
     ports:
       - ${HTTP_PORT}:80
+    volumes:
+      - ./src:/var/www/html/
 
   composer:
-    container_name: ba_back_composer
+    container_name: rpi_composer
     image: ${ARCH}composer:latest
+    depends_on:
+      - php
     command: [ "composer", "install" ]
     volumes:
       - ./src:/app
+    networks:
+      - raspi
+
+networks:
+  raspi:
